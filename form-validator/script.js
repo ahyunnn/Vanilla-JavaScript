@@ -31,6 +31,7 @@ function isValidEmail(email) {
 form.addEventListener("submit", function (e) {
   e.preventDefault(); // Event.preventDefault() : 해당 이벤트에 대한 기본 동작을 실행하지 않도록 차단 - submit 기능 차단
 
+  console.log(username.value, email.value, password.value, password2.value);
   // username.value가 존재하지 않으면 showError함수(Username is required라는 에러메세지가 뜨도록 하는 기능) 실행
   if (username.value === "") {
     showError(username, "Username is required");
