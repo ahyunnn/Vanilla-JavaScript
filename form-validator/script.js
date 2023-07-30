@@ -25,37 +25,55 @@ function isValidEmail(email) {
   return regex.test(email);
 }
 
+// ✅ Check required fields
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+      showError(input, `${getFieldName(input)} is required`);
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
+// ✅ Get Fieldname : 첫 글자만 대문자로 만들기 위해 함수를 따로 빼서 사용
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
 // ✅ Event listeners
 // EventTarget.addEventListener() : 지정한 유형의 이벤트를 대상이 수신할 때마다 호출할 함수를 설정
 // 구문 : addEventListener(type, listener)
 form.addEventListener("submit", function (e) {
   e.preventDefault(); // Event.preventDefault() : 해당 이벤트에 대한 기본 동작을 실행하지 않도록 차단 - submit 기능 차단
 
-  console.log(username.value, email.value, password.value, password2.value);
+  checkRequired([username, email, password, password2]);
+
+  // ❌
   // username.value가 존재하지 않으면 showError함수(Username is required라는 에러메세지가 뜨도록 하는 기능) 실행
-  if (username.value === "") {
-    showError(username, "Username is required");
-  } else {
-    showSuccess(username);
-  }
+  // if (username.value === "") {
+  //   showError(username, "Username is required");
+  // } else {
+  //   showSuccess(username);
+  // }
 
-  if (email.value === "") {
-    showError(email, "Email is required");
-  } else if (!isValidEmail(email.value)) {
-    showError(email, "Email is not valid");
-  } else {
-    showSuccess(email);
-  }
+  // if (email.value === "") {
+  //   showError(email, "Email is required");
+  // } else if (!isValidEmail(email.value)) {
+  //   showError(email, "Email is not valid");
+  // } else {
+  //   showSuccess(email);
+  // }
 
-  if (password.value === "") {
-    showError(password, "Password is required");
-  } else {
-    showSuccess(password);
-  }
+  // if (password.value === "") {
+  //   showError(password, "Password is required");
+  // } else {
+  //   showSuccess(password);
+  // }
 
-  if (password2.value === "") {
-    showError(password2, "Password is required again");
-  } else {
-    showSuccess(password2);
-  }
+  // if (password2.value === "") {
+  //   showError(password2, "Password is required again");
+  // } else {
+  //   showSuccess(password2);
+  // }
 });
