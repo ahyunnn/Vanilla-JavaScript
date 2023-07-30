@@ -20,9 +20,13 @@ function showSuccess(input) {
 }
 
 // ✅ Check email is valid : 이메일 형식인지 확인하는 정규식
-function isValidEmail(email) {
+function checkEmail(input) {
   const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-  return regex.test(email);
+  if (regex.test(input.value.trim())) {
+    showSuccess(input);
+  } else {
+    showError(input, "Email is not valid");
+  }
 }
 
 // ✅ Check required fields
@@ -41,6 +45,29 @@ function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
+// ✅ Check input length : input값 길이 체크
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(
+      input,
+      `${getFieldName(input)} must be at least ${min} characters`
+    );
+  } else if (input.value.length > max) {
+    showError(
+      input,
+      `${getFieldName(input)} must be less than ${max} characters`
+    );
+  } else {
+    showSuccess(input);
+  }
+}
+
+// Check passwords match
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, "Passwords do not match");
+  }
+}
 // ✅ Event listeners
 // EventTarget.addEventListener() : 지정한 유형의 이벤트를 대상이 수신할 때마다 호출할 함수를 설정
 // 구문 : addEventListener(type, listener)
@@ -49,6 +76,12 @@ form.addEventListener("submit", function (e) {
 
   checkRequired([username, email, password, password2]);
 
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
+
+  checkEmail(email);
+
+  checkPasswordsMatch(password, password2);
   // ❌
   // username.value가 존재하지 않으면 showError함수(Username is required라는 에러메세지가 뜨도록 하는 기능) 실행
   // if (username.value === "") {
