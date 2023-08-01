@@ -9,9 +9,25 @@ const total = document.getElementById("total");
 const movieSelect = document.getElementById("movie");
 let ticketPrice = +movieSelect.value;
 
+// ✅ Save selected movie index and price
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem("selectedMovieIndex", movieIndex);
+  localStorage.setItem("selectedMoviePrice", moviePrice);
+}
+
 // ✅ Update total and count
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll(".row .seat.selected");
+
+  // Local storage에 저장하기
+  // 1. copy selected seats into arr
+  // 2. map through array
+  // 3. return a new array : seatIndex
+  // 내가 선택한 값(selectedSeats)의 위치를 seats(not occupied된 자리)에서의 인덱스로 저장
+  const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+  // 로컬스토리지에 저장하기
+  localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
 
   const selectedSeatsCount = selectedSeats.length;
 
@@ -22,6 +38,7 @@ function updateSelectedCount() {
 // ✅ Movie Select event - 영화를 누르면 해당 영화가 선택되도록 하는 함수
 movieSelect.addEventListener("click", (event) => {
   ticketPrice = +event.target.value;
+  setMovieData(event.target.selectedIndex, event.target.value);
   updateSelectedCount();
 });
 
