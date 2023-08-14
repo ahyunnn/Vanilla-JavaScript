@@ -22,7 +22,7 @@ function updatePlayIcon() {
   }
 }
 
-// Update progress & timestamp
+// Update progress & timestamp : 재생시간 = (현재시간 / 전체 길이) * 100
 function updateProgress() {
   progress.value = (video.currentTime / video.duration) * 100;
 
