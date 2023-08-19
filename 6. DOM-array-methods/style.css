@@ -36,6 +36,11 @@ button {
   margin-bottom: 20px;
   font-weight: bold;
   font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  border: solid 2px skyblue;
 }
 
 main {
