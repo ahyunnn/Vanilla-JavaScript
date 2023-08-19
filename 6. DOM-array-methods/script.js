@@ -2,10 +2,14 @@ const main = document.getElementById("main");
 const addUserBtn = document.querySelector(".add-user");
 const doubleBtn = document.querySelector(".double");
 const showMillionairesBtn = document.getElementById("show-millionaires");
-const sortBtn = document.getElementById("sort");
+const sortBtn = document.querySelector(".sort");
 const calculateWealthBtn = document.getElementById("calculate-wealth");
 
 let data = [];
+
+getRandomUser();
+getRandomUser();
+getRandomUser();
 
 // ✅ Fetch random user and add money : api를 통해 랜덤 이름, 자산 불러오기
 async function getRandomUser() {
@@ -61,6 +65,14 @@ function doubleMoney() {
   updateDOM();
 }
 
+// Sort users by richest
+function sortByRichest() {
+  data.sort((a, b) => b.money - a.money);
+
+  updateDOM();
+}
+
 // ✅ Event listeners
 addUserBtn.addEventListener("click", getRandomUser);
 doubleBtn.addEventListener("click", doubleMoney);
+sortBtn.addEventListener("click", sortByRichest);
